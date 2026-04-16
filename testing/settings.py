@@ -24,18 +24,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^2dca9)*)d-!_3#!1k4-*i+gx$b0b)r48_dntk)j6(1tausqj&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
-    "emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net",
-    "127.0.0.1",
-    "localhost",
+    'localhost',
+    '127.0.0.1',
+    '.azurewebsites.net',  # Allows any *.azurewebsites.net domain
+    '169.254.129.2',       # Azure internal health probe
+    '169.254.130.3',       # Some Azure regions use this
+    'emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net',
 ]
+
+# Or more simply, allow ALL hosts for testing (not recommended for production)
+# ALLOWED_HOSTS = ['*']
+
 CSRF_TRUSTED_ORIGINS = [
-    "https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net/",
-    "http://127.0.0.1/",
-    "http://localhost/"
+    'https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net',
+    'https://*.azurewebsites.net',
 ]
+
+# If you're using Azure's internal health checks, also add:
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
+
+# Optional: Handle Azure's internal probes gracefully
+import logging
+logging.getLogger('django.security.DisallowedHost').setLevel(logging.ERROR)
 
 # Application definition
 
