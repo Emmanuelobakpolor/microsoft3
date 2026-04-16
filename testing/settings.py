@@ -32,7 +32,9 @@ ALLOWED_HOSTS = [
     "localhost",
 ]
 CSRF_TRUSTED_ORIGINS = [
-    "https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net",
+    "https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net/",
+    "http://127.0.0.1/",
+    "http://localhost/"
 ]
 
 # Application definition
