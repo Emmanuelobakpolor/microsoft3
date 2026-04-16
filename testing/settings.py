@@ -26,12 +26,14 @@ SECRET_KEY = 'django-insecure-^2dca9)*)d-!_3#!1k4-*i+gx$b0b)r48_dntk)j6(1tausqj&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-
-CSRF_TRUSTED_ORIGINS = os.getenv(
-    "CSRF_TRUSTED_ORIGINS",
-    "http://127.0.0.1,http://localhost"
-).split(",")
+ALLOWED_HOSTS = [
+    "emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net",
+    "127.0.0.1",
+    "localhost",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net",
+]
 
 # Application definition
 
