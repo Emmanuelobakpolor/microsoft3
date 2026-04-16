@@ -103,7 +103,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "adminuseruser",   # ✅ FIXED
-        "PASSWORD": "BlessedaNN1",
+        "PASSWORD": "TestPass123",
         "HOST": "yangaserver.postgres.database.azure.com",
         "PORT": "5432",
         "OPTIONS": {
