@@ -1,0 +1,5 @@
+- [x] Add env var parsing helper in testing/settings.py
+- [x] Replace hardcoded ALLOWED_HOSTS with env-driven config
+- [x] Replace hardcoded CSRF_TRUSTED_ORIGINS with env-driven config
+- [x] Replace hardcoded DATABASES with DATABASE_URL parsing and sqlite fallback
+- [x] Mark progress in TODO.md

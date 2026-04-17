@@ -26,22 +26,17 @@ SECRET_KEY = 'django-insecure-^2dca9)*)d-!_3#!1k4-*i+gx$b0b)r48_dntk)j6(1tausqj&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    '.azurewebsites.net',  # Allows any *.azurewebsites.net domain
-    '169.254.129.2',       # Azure internal health probe
-    '169.254.130.3',       # Some Azure regions use this
-    'emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net',
-]
+def get_env_list(var_name, default=None):
+    value = os.environ.get(var_name)
+    if value:
+        return [item.strip() for item in value.split(',') if item.strip()]
+    return default or []
 
-# Or more simply, allow ALL hosts for testing (not recommended for production)
-# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = get_env_list('ALLOWED_HOSTS', ['*'])
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net',
-    'https://*.azurewebsites.net',
-]
+CSRF_TRUSTED_ORIGINS = get_env_list('CSRF_TRUSTED_ORIGINS', [
+    
+])
 
 # If you're using Azure's internal health checks, also add:
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -99,17 +94,7 @@ WSGI_APPLICATION = 'testing.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "adminuseruser",   # ✅ FIXED
-        "PASSWORD": "TestPass123",
-        "HOST": "yangaserver.postgres.database.azure.com",
-        "PORT": "5432",
-        "OPTIONS": {
-            "sslmode": "require",
-        },
-    }
+    'default': dj_database_url.parse(os.environ['DATABASE_URL'], conn_max_age=600, ssl_require=True)
 }
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
