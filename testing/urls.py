@@ -15,13 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.http import HttpResponse
+from django.http import JsonResponse
 from django.urls import path
+import json
 
 def home(request):
-    return HttpResponse("Django app is running successfully")
+    return JsonResponse({"message": "API is working"})
+
+def test_post(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        return JsonResponse({
+            "received": data
+        })
+    return JsonResponse({"error": "POST only"}, status=400)
 
 urlpatterns = [
     path('', home),
+    path('test/', test_post),
     path('admin/', admin.site.urls),
 ]
