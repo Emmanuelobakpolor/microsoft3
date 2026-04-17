@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from .models import UploadedImage
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def upload_image(request):
     if request.method == "POST":
         image = request.FILES.get("image")
