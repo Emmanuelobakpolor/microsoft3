@@ -32,10 +32,18 @@ def get_env_list(var_name, default=None):
         return [item.strip() for item in value.split(',') if item.strip()]
     return default or []
 
-ALLOWED_HOSTS = get_env_list('ALLOWED_HOSTS', ['*'])
+ALLOWED_HOSTS = get_env_list('ALLOWED_HOSTS', [
+    'localhost',
+    '127.0.0.1',
+    '.azurewebsites.net',
+    '169.254.129.2',
+    '169.254.130.3',
+    'emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net',
+])
 
 CSRF_TRUSTED_ORIGINS = get_env_list('CSRF_TRUSTED_ORIGINS', [
-    
+    'https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net',
+    'https://*.azurewebsites.net',
 ])
 
 # If you're using Azure's internal health checks, also add:
@@ -93,9 +101,19 @@ WSGI_APPLICATION = 'testing.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(os.environ['DATABASE_URL'], conn_max_age=600, ssl_require=True)
-}
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=True)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
