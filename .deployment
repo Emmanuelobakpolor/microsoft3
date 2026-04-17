@@ -1,2 +1,2 @@
 [config]
-command = bash /home/site/wwwroot/startup.sh
+command = bash -c "export PYTHONPATH=/home/site/wwwroot && cd /home/site/wwwroot && gunicorn --bind=0.0.0.0 --timeout 600 testing.wsgi:application"
