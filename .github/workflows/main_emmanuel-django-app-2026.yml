@@ -73,4 +73,11 @@ jobs:
         with:
           app-name: 'emmanuel-django-app-2026'
           slot-name: 'Production'
+
+      - name: Configure startup command
+        run: |
+          az webapp config set \
+            --resource-group 'emmanuel-django-app-2026' \
+            --name 'emmanuel-django-app-2026' \
+            --startup-file "python3 -m gunicorn testing.wsgi:application -c gunicorn.conf.py"
           

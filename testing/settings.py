@@ -64,14 +64,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'corsheaders',
     'uploads',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -161,10 +159,3 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# CORS settings - allow Azure SCM and main domain
-CORS_ALLOWED_ORIGINS = [
-    'https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.canadacentral-01.azurewebsites.net',
-    'https://emmanuel-django-app-2026-ama0cxf6bdd3afdg.scm.canadacentral-01.azurewebsites.net',
-]
-CORS_ALLOW_CREDENTIALS = True
