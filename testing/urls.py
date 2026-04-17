@@ -4,6 +4,8 @@ from django.urls import path
 from django.views.decorators.csrf import csrf_exempt
 import json
 
+from uploads.views import upload_image
+
 def home(request):
     return JsonResponse({"message": "API is working"})
 
@@ -18,4 +20,5 @@ urlpatterns = [
     path('', home),
     path('test/', test_post),
     path('admin/', admin.site.urls),
+    path('upload/', upload_image),
 ]
